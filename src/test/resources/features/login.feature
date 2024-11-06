@@ -1,12 +1,16 @@
 Feature: User Login
 
   Scenario: Successful Login
-    Given Username is 'admin' and password is 'admin' for successful login
-    When User enters username and password correctly
-    Then User should see 'Welcome!' message
+    Given Username is 'admin' and password is 'admin'
+    When User enters username and password
+    Then User should see the message 'Welcome!'
 
   Scenario: Unsuccessful Login with wrong password
-    Given Username is 'admin' and password is 'wrong' for unsuccessful login
-    When User enters username correctly and password incorrectly
-    Then User should see 'Wrong Password!' message
-    
+    Given Username is 'admin' and password is 'wrong'
+    When User enters username and password
+    Then User should see the message 'Wrong Password!'
+
+  Scenario: Unsuccessful Login with wrong username
+    Given Username is 'wrong' and password is 'admin'
+    When User enters username and password
+    Then User should see the message 'Wrong Username!'

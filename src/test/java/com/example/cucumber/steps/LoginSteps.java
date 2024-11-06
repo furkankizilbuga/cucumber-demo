@@ -13,43 +13,39 @@ public class LoginSteps {
     private String message;
 
 
-    //First Scenario
-    @Given("Username is {string} and password is {string} for successful login")
-    public void username_and_password_for_successful_login(String username, String password) {
+    @Given("Username is {string} and password is {string}")
+    public void username_and_password(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    @When("User enters username and password correctly")
-    public void user_enters_both_correctly() {
-        if("admin".equals(username) && "admin".equals(password)) {
+    @When("User enters username and password")
+    public void user_enters_username_and_password() {
+        //First Scenario - Successful Login
+        if ("admin".equals(username) && "admin".equals(password)) {
             this.message = "Welcome!";
         }
-    }
 
-    @Then("User should see 'Welcome!' message")
-    public void user_should_see_welcome_message() {
-        assertEquals("Welcome!", message);
-    }
-
-
-    //Second Scenario
-    @Given("Username is {string} and password is {string} for unsuccessful login")
-    public void username_and_password_for_unsuccessful_login(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    @When("User enters username correctly and password incorrectly")
-    public void user_enters_username_correctly_and_password_incorrectly() {
-        if("admin".equals(username) && "wrong".equals(password)) {
+        //Second Scenario - Unsuccessful Login with wrong password
+        else if ("admin".equals(username) && "wrong".equals(password)) {
             this.message = "Wrong Password!";
+        }
+
+        //Third Scenario - Unsuccessful Login with wrong username
+        else if ("wrong".equals(username) && "admin".equals(password)) {
+            this.message = "Wrong Username!";
+        }
+
+        //Both wrong.
+        else {
+            this.message = "Invalid Credentials!";
         }
     }
 
-    @Then("User should see 'Wrong Password!' message")
-    public void user_should_see_wrong_password_message() {
-        assertEquals("Wrong Password!", message);
+    @Then("User should see the message {string}")
+    public void user_should_see_message(String expectedMessage) {
+        assertEquals(expectedMessage, message);
     }
+
 
 }
